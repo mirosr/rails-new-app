@@ -1,15 +1,15 @@
-# starting message
+# Starting message
 say %q{
       =============================================================
         load    template
 
 }
 
-# clean up the Gemfile
+# Clean up the Gemfile
 run 'sed -e /#.*$/d -e /^\s*$/d -i Gemfile'
 run %q{sed -e '/^gem /{x;p;x}' -e '/^group /{x;p;x}' -i Gemfile}
 
-# install third-party gems
+# Install third-party gems
 append_file 'Gemfile', %q{ 
 gem 'haml-rails', '~> 0.3.4'
 
@@ -39,20 +39,20 @@ Bundler.with_clean_env do
   run 'bundle install > /dev/null'
 end
 
-# configure haml
+# Configure haml
 inside 'app/views/layouts' do
   run 'bundle exec html2haml application.html.erb > application.html.haml'
   remove_file 'application.html.erb'
 end
 
-# configure sass
+# Configure sass
 inject_into_file 'config/application.rb', <<-EOS, after: "config.assets.version = '1.0'\n"
 
     # Make use of sass syntax over scss
     config.sass.preferred_syntax = :sass
 EOS
 
-# configure rspec
+# Configure rspec
 generate 'rspec:install'
 inject_into_file 'config/application.rb', <<-EOS, after: "config.sass.preferred_syntax = :sass\n"
 
@@ -77,17 +77,17 @@ inject_into_file 'spec/spec_helper.rb', <<-EOS, after: %|config.order = "random"
   config.run_all_when_everything_filtered = true
 EOS
 
-# configure capybara
+# Configure capybara
 inject_into_file 'spec/spec_helper.rb', "\nrequire 'capybara/rspec'", after: "require 'rspec/autorun'"
 
-# configure factory_girl
+# Configure factory_girl
 inject_into_file 'spec/spec_helper.rb', <<-EOS, after: %|config.run_all_when_everything_filtered = true\n|
 
   # Include factory_girl syntax to simplify factories calls
   config.include FactoryGirl::Syntax::Methods
 EOS
 
-# configure guard
+# Configure guard
 run 'bundle exec guard init -b 2> /dev/null'
 append_file 'Guardfile', 'notification :off'
 run 'bundle exec guard init spork 2> /dev/null'
@@ -98,7 +98,7 @@ gsub_file 'Guardfile', /^\s*watch.* { :cucumber }$/, ''
 gsub_file 'Guardfile', /:version => 2/, %q{:version => 2, cli: '-f d --drb', run_all: { cli: '-f p --drb' }, all_on_start: false, all_after_pass: false}
 run %q<sed -e /^#.*$/d -e /^\s*$/d -e '/guard .*$/{x;p;x}' -i Guardfile>
 
-# configure spork
+# Configure spork
 inside 'spec' do
   gsub_file 'spec_helper.rb', /^/, '  '
   prepend_file 'spec_helper.rb', <<-EOS
@@ -116,7 +116,7 @@ end
 EOS
 end
 
-# creating databases
+# Creating databases
 inside 'config' do
   run 'cp database.yml database.example'
   gsub_file 'database.yml', /(username:)\s*\w*$/, '\1 miro'
@@ -125,11 +125,11 @@ inside 'config' do
 end
 rake 'db:create', env: 'development'
 
-# clean up rails
+# Clean up rails
 remove_file 'public/index.html'
 remove_file 'app/assets/images/rails.png'
 
-# git
+# Git
 append_file '.gitignore', %q{
 # Ignore gems managed by bundler
 /vendor/bundle
@@ -141,7 +141,7 @@ git init: '-q'
 git add: '.'
 git commit: '-aqm "initial commit"'
 
-# ending message
+# Ending message
 say %q{
         done    loading template
       =============================================================

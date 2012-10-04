@@ -110,7 +110,7 @@ inside 'spec' do
   gsub_file 'spec_helper.rb', /^/, '  '
   prepend_file 'spec_helper.rb', <<-EOS
 require 'rubygems'
-require 'rspec/rails'
+require 'spork'
 
 Spork.prefork do
 EOS

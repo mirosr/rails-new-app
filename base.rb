@@ -76,6 +76,13 @@ inject_into_file 'spec/spec_helper.rb', <<-EOS, after: %|config.order = "random"
   config.filter_run focus: true
   config.run_all_when_everything_filtered = true
 EOS
+inject_into_file 'spec/spec_helper.rb', <<-EOS, after: %|config.order = "random"\n|
+  
+  # Enable only the new expect syntax
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
+EOS
 
 # Configure capybara
 inject_into_file 'spec/spec_helper.rb', "\nrequire 'capybara/rspec'", after: "require 'rspec/autorun'"

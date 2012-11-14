@@ -32,7 +32,7 @@ cd $APP_NAME
 echo ' done!'
 echo -n 'Writing a sample Gemfile...'
 cat >Gemfile <<EOL
-source 'https://rubygems.org'
+source :rubygems
 
 gem 'rails', '3.2.8'
 EOL

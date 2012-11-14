@@ -2,6 +2,7 @@
 
 APP_NAME=$1
 SCRIPT_NAME=$(basename $0)
+BUNDLE_COMMAND=$(command -v bundle 2>/dev/null)
 TEMPLATE="$(cd $(dirname $0) && pwd)/base.rb"
 
 # Check for a given application name
@@ -15,6 +16,12 @@ fi
 # Check if the application directory already exists
 if [ -d "$APP_NAME" ]; then
   echo "Directory $APP_NAME already exists. Aborting!"
+  exit 1
+fi
+
+# Check if the bundler gem is available
+if [ -z "$BUNDLE_COMMAND" ]; then
+  echo "bundle: command not found. Aborting!"
   exit 1
 fi
 

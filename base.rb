@@ -10,28 +10,28 @@ run 'sed -e /#.*$/d -e /^\s*$/d -i Gemfile'
 run %q{sed -e '/^gem /{x;p;x}' -e '/^group /{x;p;x}' -i Gemfile}
 
 # Install third-party gems
-append_file 'Gemfile', %q{ 
-gem 'haml-rails', '~> 0.3.4'
+append_file 'Gemfile', %q{
+gem 'haml-rails', '~> 0.3.5'
 
 group :development do
   gem 'hpricot', '0.8.6'
   gem 'ruby_parser', '2.3.1'
-  gem 'pry', '~> 0.9.0'
+  gem 'pry', '~> 0.9.10'
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.11.0'
+  gem 'rspec-rails', '~> 2.12.0'
 end
 
 group :test do
   gem 'rb-inotify', '0.8.8'
-  gem 'guard-rspec', '~> 1.2.1'
-  gem 'guard-spork', '~> 1.2.0'
-  gem 'factory_girl_rails', '~> 4.0.0'
-  gem 'shoulda-matchers', '~> 1.3.0'
+  gem 'guard-rspec', '~> 2.1.1'
+  gem 'guard-spork', '~> 1.2.3'
+  gem 'factory_girl_rails', '~> 4.1.0'
+  gem 'shoulda-matchers', '~> 1.4.1'
   gem 'forgery', '~> 0.5.0'
-  gem 'capybara', '~> 1.1.2'
-  gem 'database_cleaner', '~> 0.8.0'
+  gem 'capybara', '~> 2.0.0'
+  gem 'database_cleaner', '~> 0.9.1'
   gem 'launchy', '~> 2.1.2'
 end
 }

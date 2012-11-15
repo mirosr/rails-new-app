@@ -41,7 +41,12 @@ echo ' done!'
 # Install rails in the application directory
 echo -n 'Running bundle install...'
 bundle install --path vendor/bundle >/dev/null
-echo ' done!'
+if [ $? -eq 0 ]; then
+  echo ' done!'
+else
+  echo ' fail!'
+  exit 1
+fi
 
 # Generate a new rails application
 echo 'Creating new rails application'

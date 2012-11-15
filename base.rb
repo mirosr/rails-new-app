@@ -14,8 +14,8 @@ append_file 'Gemfile', %q{
 gem 'haml-rails', '~> 0.3.5'
 
 group :development do
-  gem 'hpricot', '0.8.6'
-  gem 'ruby_parser', '2.3.1'
+  gem 'hpricot'              #used by html2haml
+  gem 'ruby_parser', '2.3.1' #used by html2haml
   gem 'pry', '~> 0.9.10'
 end
 
@@ -43,6 +43,10 @@ end
 inside 'app/views/layouts' do
   run 'bundle exec html2haml application.html.erb > application.html.haml'
   remove_file 'application.html.erb'
+end
+run 'sed -e /hpricot/d -e /ruby_parser/d -i Gemfile'
+Bundler.with_clean_env do
+  run 'bundle install > /dev/null'
 end
 
 # Configure sass

@@ -29,6 +29,11 @@ if [ -z "$BUNDLE_COMMAND" ]; then
   exit 1
 fi
 
+# Start the process
+echo "Rails app to be created: $APP_NAME"
+echo "Template to be used    : $TEMPLATE_NAME"
+echo
+
 # Prepare the application directory
 echo -n 'Creating application directory...'
 mkdir $APP_NAME

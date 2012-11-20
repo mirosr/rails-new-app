@@ -106,7 +106,7 @@ run 'bundle exec guard init rspec 2> /dev/null'
 gsub_file 'Guardfile', / :cucumber_env => \{.*\},/, ''
 gsub_file 'Guardfile', /^\s*watch.* { :test_unit }$/, ''
 gsub_file 'Guardfile', /^\s*watch.* { :cucumber }$/, ''
-gsub_file 'Guardfile', /:version => 2/, %q{:version => 2, cli: '-f d --drb', run_all: { cli: '-f p --drb' }, all_on_start: false, all_after_pass: false}
+gsub_file 'Guardfile', /rspec'/, %q{rspec', cli: '-f d --drb', run_all: { cli: '-f p --drb' }, all_on_start: false, all_after_pass: false}
 run %q<sed -e /^#.*$/d -e /^\s*$/d -e '/guard .*$/{x;p;x}' -i Guardfile>
 
 # Configure spork

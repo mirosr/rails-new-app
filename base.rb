@@ -46,7 +46,6 @@ inside 'config' do
   gsub_file 'database.yml', /(password:)\s*$/, '\1 ' + "miro\n"
   run %q{sed -e /#.*$/d -e /^\s*$/d -e '/test:/{x;p;x}' -e '/production:/{x;p;x}' -i database.yml}
 end
-rake 'db:create', env: 'development'
 
 # Clean up rails
 remove_file 'public/index.html'

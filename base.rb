@@ -10,13 +10,10 @@ run 'sed -e /#.*$/d -e /^\s*$/d -i Gemfile'
 run %q{sed -e '/^gem /{x;p;x}' -e '/^group /{x;p;x}' -i Gemfile}
 
 # Install third-party gems
-append_file 'Gemfile', %q{ 
+append_file 'Gemfile', %q{
 gem 'haml-rails', '~> 0.3.5'
-
-group :development do
-  gem 'hpricot'
-  gem 'ruby_parser', '2.3.1'
-end
+gem 'hpricot', group: :development              #used by html2haml
+gem 'ruby_parser', '2.3.1', group: :development #used by html2haml
 }
 Bundler.with_clean_env do
   run 'bundle install > /dev/null'
@@ -27,7 +24,7 @@ inside 'app/views/layouts' do
   run 'bundle exec html2haml application.html.erb > application.html.haml'
   remove_file 'application.html.erb'
 end
-run 'sed -e /hpricot/d -e /ruby_parser/d -i Gemfile'
+run 'sed "/, group: :development/d " -i Gemfile'
 Bundler.with_clean_env do
   run 'bundle install > /dev/null'
 end

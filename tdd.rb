@@ -122,6 +122,7 @@ EOS
 end
 
 Spork.each_run do
+  load "\#{Rails.root}/config/routes.rb"
   FactoryGirl.reload
 end
 EOS

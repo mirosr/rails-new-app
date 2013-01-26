@@ -16,21 +16,21 @@ gem 'haml-rails', '~> 0.3.5'
 group :development do
   gem 'hpricot'              #used by html2haml
   gem 'ruby_parser', '2.3.1' #used by html2haml
-  gem 'pry', '~> 0.9.10'
+  gem 'pry', '~> 0.9.11'
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.12.0'
+  gem 'rspec-rails', '~> 2.12.2'
 end
 
 group :test do
-  gem 'rb-inotify', '0.8.8'
-  gem 'guard-rspec', '~> 2.1.2'
-  gem 'guard-spork', '~> 1.2.3'
-  gem 'factory_girl_rails', '~> 4.1.0'
-  gem 'shoulda-matchers', '~> 1.4.1'
+  gem 'rb-inotify', '~> 0.8.8'
+  gem 'guard-rspec', '~> 2.4.0'
+  gem 'guard-spork', '~> 1.4.1'
+  gem 'factory_girl_rails', '~> 4.2.0'
+  gem 'shoulda-matchers', '~> 1.4.2'
   gem 'forgery', '~> 0.5.0'
-  gem 'capybara', '~> 2.0.0'
+  gem 'capybara', '~> 2.0.2'
   gem 'database_cleaner', '~> 0.9.1'
   gem 'launchy', '~> 2.1.2'
 end

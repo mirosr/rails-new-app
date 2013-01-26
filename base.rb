@@ -36,7 +36,7 @@ inject_into_file 'config/application.rb', <<-EOS, after: "config.assets.version 
     config.sass.preferred_syntax = :sass
 EOS
 
-# Creating databases
+# Configure databases
 inside 'config' do
   run 'cp database.yml database.example'
   gsub_file 'database.yml', /(username:)\s*\w*$/, '\1 miro'

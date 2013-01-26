@@ -127,7 +127,7 @@ end
 EOS
 end
 
-# Creating databases
+# Configure databases
 inside 'config' do
   run 'cp database.yml database.example'
   gsub_file 'database.yml', /(username:)\s*\w*$/, '\1 miro'

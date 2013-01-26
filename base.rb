@@ -65,4 +65,6 @@ git commit: '-aqm "initial commit"'
 say %q{
         done    loading template
       =============================================================
+
+Hint: You should create the application's database manually with rake db:create
 }

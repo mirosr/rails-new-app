@@ -139,6 +139,7 @@ end
 # Clean up rails
 remove_file 'public/index.html'
 remove_file 'app/assets/images/rails.png'
+remove_file 'README.rdoc'
 
 # Git
 append_file '.gitignore', %q{

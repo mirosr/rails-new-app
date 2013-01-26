@@ -66,7 +66,7 @@ inject_into_file 'config/application.rb', <<-EOS, after: "config.sass.preferred_
         fixtures: true,
         view_specs: false,
         helper_specs: false,
-        routing_specs: false,
+        routing_specs: true,
         controller_specs: true,
         request_specs: true
       g.fixture_replacement :factory_girl, dir: 'spec/factories'

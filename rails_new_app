@@ -41,9 +41,9 @@ cd $APP_NAME
 echo ' done!'
 printf 'Writing a sample Gemfile...'
 cat >Gemfile <<EOL
-source :rubygems
-ruby '1.9.3'
-gem 'rails', '3.2.11'
+source 'https://rubygems.org'
+ruby '2.1.2'
+gem 'rails', '3.2.19'
 EOL
 echo ' done!'
 

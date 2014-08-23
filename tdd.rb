@@ -36,7 +36,7 @@ group :test do
 end
 }
 Bundler.with_clean_env do
-  run 'bundle install > /dev/null'
+  run 'bundle install --quiet > /dev/null'
 end
 
 # Configure haml
@@ -46,7 +46,7 @@ inside 'app/views/layouts' do
 end
 run 'sed -e /hpricot/d -e /ruby_parser/d -i Gemfile'
 Bundler.with_clean_env do
-  run 'bundle install > /dev/null'
+  run 'bundle install --quiet > /dev/null'
 end
 
 # Configure sass

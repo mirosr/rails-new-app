@@ -49,7 +49,7 @@ echo ' done!'
 
 # Install rails in the application directory
 printf 'Running bundle install...'
-bundle install --path vendor/bundle >/dev/null
+bundle install --quiet --path vendor/bundle &>/dev/null
 if [ $? -eq 0 ]; then
   echo ' done!'
 else

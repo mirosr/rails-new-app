@@ -16,7 +16,7 @@ gem 'hpricot', group: :development              #used by html2haml
 gem 'ruby_parser', '2.3.1', group: :development #used by html2haml
 }
 Bundler.with_clean_env do
-  run 'bundle install > /dev/null'
+  run 'bundle install --quiet > /dev/null'
 end
 
 # Configure haml
@@ -26,7 +26,7 @@ inside 'app/views/layouts' do
 end
 run 'sed "/, group: :development/d " -i Gemfile'
 Bundler.with_clean_env do
-  run 'bundle install > /dev/null'
+  run 'bundle install --quiet > /dev/null'
 end
 
 # Configure sass

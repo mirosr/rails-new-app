@@ -35,11 +35,11 @@ echo "Template to be used    : $TEMPLATE_NAME"
 echo
 
 # Prepare the application directory
-echo -n 'Creating application directory...'
+printf 'Creating application directory...'
 mkdir $APP_NAME
 cd $APP_NAME
 echo ' done!'
-echo -n 'Writing a sample Gemfile...'
+printf 'Writing a sample Gemfile...'
 cat >Gemfile <<EOL
 source :rubygems
 ruby '1.9.3'
@@ -48,7 +48,7 @@ EOL
 echo ' done!'
 
 # Install rails in the application directory
-echo -n 'Running bundle install...'
+printf 'Running bundle install...'
 bundle install --path vendor/bundle >/dev/null
 if [ $? -eq 0 ]; then
   echo ' done!'

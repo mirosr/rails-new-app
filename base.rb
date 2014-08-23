@@ -6,8 +6,9 @@ say %q{
 }
 
 # Clean up the Gemfile
-run 'sed -e /#.*$/d -e /^\s*$/d -i Gemfile'
-run %q{sed -e '/^gem /{x;p;x}' -e '/^group /{x;p;x}' -i Gemfile}
+gsub_file 'Gemfile', /#.*\n/, ''
+gsub_file 'Gemfile', /^\s*\n/, ''
+gsub_file 'Gemfile', /^(gem|group )/, "\n\\1"
 
 # Install third-party gems
 append_file 'Gemfile', %q{
@@ -24,7 +25,7 @@ inside 'app/views/layouts' do
   run 'bundle exec html2haml application.html.erb > application.html.haml'
   remove_file 'application.html.erb'
 end
-run 'sed "/, group: :development/d " -i Gemfile'
+gsub_file 'Gemfile', /^.*, group: :development.*\n/, ''
 Bundler.with_clean_env do
   run 'bundle install --quiet > /dev/null'
 end
@@ -39,9 +40,12 @@ EOS
 # Configure databases
 inside 'config' do
   run 'cp database.yml database.example'
+  gsub_file 'database.yml', /#.*\n/, ''
+  gsub_file 'database.yml', /^\s*\n/, ''
   gsub_file 'database.yml', /(username:)\s*\w*$/, '\1 miro'
-  gsub_file 'database.yml', /(password:)\s*$/, '\1 ' + "miro\n"
-  run %q{sed -e /#.*$/d -e /^\s*$/d -e '/test:/{x;p;x}' -e '/production:/{x;p;x}' -i database.yml}
+  gsub_file 'database.yml', /(password:)\s*$/, "\\1 miro\n"
+  gsub_file 'database.yml', /^(test: )/, "\n\\1"
+  gsub_file 'database.yml', /^(production: )/, "\n\\1"
 end
 
 # Clean up rails

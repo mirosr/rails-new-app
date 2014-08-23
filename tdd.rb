@@ -6,8 +6,9 @@ say %q{
 }
 
 # Clean up the Gemfile
-run 'sed -e /#.*$/d -e /^\s*$/d -i Gemfile'
-run %q{sed -e '/^gem /{x;p;x}' -e '/^group /{x;p;x}' -i Gemfile}
+gsub_file 'Gemfile', /#.*\n/, ''
+gsub_file 'Gemfile', /^\s*\n/, ''
+gsub_file 'Gemfile', /^(gem|group )/, "\n\\1"
 
 # Install third-party gems
 append_file 'Gemfile', %q{
@@ -44,7 +45,7 @@ inside 'app/views/layouts' do
   run 'bundle exec html2haml application.html.erb > application.html.haml'
   remove_file 'application.html.erb'
 end
-run 'sed -e /hpricot/d -e /ruby_parser/d -i Gemfile'
+gsub_file 'Gemfile', /^.*used by html2haml\n/, ''
 Bundler.with_clean_env do
   run 'bundle install --quiet > /dev/null'
 end
@@ -72,7 +73,6 @@ inject_into_file 'config/application.rb', <<-EOS, after: "config.sass.preferred_
       g.fixture_replacement :factory_girl, dir: 'spec/factories'
     end
 EOS
-run 'sed 1d -i spec/spec_helper.rb'
 inject_into_file 'spec/spec_helper.rb', <<-EOS, after: %|config.order = "random"\n|
 
   # Declare an inclusion filter named focus
@@ -107,7 +107,9 @@ gsub_file 'Guardfile', / :cucumber_env => \{.*\},/, ''
 gsub_file 'Guardfile', /^\s*watch.* { :test_unit }$/, ''
 gsub_file 'Guardfile', /^\s*watch.* { :cucumber }$/, ''
 gsub_file 'Guardfile', /rspec'/, %q{rspec', cli: '-f d --drb', run_all: { cli: '-f p --drb' }, all_on_start: false, all_after_pass: false}
-run %q<sed -e /^#.*$/d -e /^\s*$/d -e '/guard .*$/{x;p;x}' -i Guardfile>
+gsub_file 'Guardfile', /#.*\n/, ''
+gsub_file 'Guardfile', /^\s*\n/, ''
+gsub_file 'Guardfile', /^(guard )/, "\n\\1"
 
 # Configure spork
 inside 'spec' do
@@ -131,9 +133,12 @@ end
 # Configure databases
 inside 'config' do
   run 'cp database.yml database.example'
+  gsub_file 'database.yml', /#.*\n/, ''
+  gsub_file 'database.yml', /^\s*\n/, ''
   gsub_file 'database.yml', /(username:)\s*\w*$/, '\1 miro'
-  gsub_file 'database.yml', /(password:)\s*$/, '\1 ' + "miro\n"
-  run %q{sed -e /#.*$/d -e /^\s*$/d -e '/test:/{x;p;x}' -e '/production:/{x;p;x}' -i database.yml}
+  gsub_file 'database.yml', /(password:)\s*$/, "\\1 miro\n"
+  gsub_file 'database.yml', /^(test: )/, "\n\\1"
+  gsub_file 'database.yml', /^(production: )/, "\n\\1"
 end
 
 # Clean up rails
